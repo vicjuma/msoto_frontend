@@ -17,6 +17,14 @@ export default function validateInput(data) {
     errors.email = REQUIRED;
   }
 
+  if (Validator.isEmpty(data.phone)) {
+    errors.phone = REQUIRED;
+  }
+
+  if (Validator.isEmpty(data.nationalId)) {
+    errors.nationalId = REQUIRED;
+  }
+
   if (Validator.isEmpty(data.password)) {
     errors.password = REQUIRED;
   }

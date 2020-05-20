@@ -15,6 +15,8 @@ class RegisterForm extends Component {
       firstName: '',
       lastName: '',
       email: '',
+      phone: '',
+      nationalId: '',
       password: '',
       confirmPassword: '',
       errors: {},
@@ -52,7 +54,7 @@ class RegisterForm extends Component {
   }
 
   render() {
-    const { firstName, lastName, email, password,
+    const { firstName, lastName, email, phone, nationalId, password,
       confirmPassword, errors, isLoading } = this.state;
 
     return(
@@ -92,6 +94,22 @@ class RegisterForm extends Component {
                   name='email'
                   defaultValue={email}
                   error={errors.email ? true : false}
+                  onChange={this.onChange}
+                />
+                <Form.Input
+                  fluid
+                  placeholder='Phone'
+                  name='phone'
+                  defaultValue={phone}
+                  error={errors.phone ? true : false}
+                  onChange={this.onChange}
+                />
+                <Form.Input
+                  fluid
+                  placeholder='National ID'
+                  name='nationalId'
+                  defaultValue={nationalId}
+                  error={errors.nationalId ? true : false}
                   onChange={this.onChange}
                 />
                 <Form.Input
