@@ -34,7 +34,7 @@ export const logout = (history) => dispatch => {
  * Register user action
  */
 export const registerUser = (data, history) => dispatch => {
-  AuthService.register(data).then(resp => {
+  AuthService.signup(data).then(resp => {
     if (resp.data.success) {
       dispatch(registerSuccess());
       history.push('/login');

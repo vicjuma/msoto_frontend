@@ -7,10 +7,10 @@ import { API_URL } from '../config';
 
 const AuthService = {
   login: function(email, password) {
-    return axios.post(API_URL + '/auth', { email: email, password: password });
+    return axios.post(API_URL + '/api/users/login', { email: email, password: password });
   },
-  register: function(data) {
-    return axios.post(API_URL + '/register', { data });
+  signup: function(firstName, lastName, email, password, phone, nationalId) {
+    return axios.post(API_URL + '/api/users/signup', { firstName, lastName, email, password, phone, nationalId });
   },
   getProfile: function() {
     return axios.get(API_URL + '/profile', { headers: this.authHeader() });
