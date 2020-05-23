@@ -4,6 +4,7 @@ import { Button, Form, Grid, Header, Image, Message,
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import validateInput from '../validators/register';
 import { registerUser } from '../store/actions/auth';
@@ -28,6 +29,13 @@ class RegisterForm extends Component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
+      axios.post('http://localhost:3000/api/users/signup', this.state)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
       this.props.registerUser(this.state, this.props.history);
     }
   }
@@ -76,7 +84,7 @@ class RegisterForm extends Component {
                   fluid
                   placeholder='First Name'
                   name='firstName'
-                  defaultValue={firstName}
+                  value={firstName}
                   error={errors.firstName ? true : false}
                   onChange={this.onChange}
                 />
@@ -84,7 +92,7 @@ class RegisterForm extends Component {
                   fluid
                   placeholder='Last Name'
                   name='lastName'
-                  defaultValue={lastName}
+                  value={lastName}
                   error={errors.lastName ? true : false}
                   onChange={this.onChange}
                 />
@@ -92,7 +100,7 @@ class RegisterForm extends Component {
                   fluid
                   placeholder='E-mail'
                   name='email'
-                  defaultValue={email}
+                  value={email}
                   error={errors.email ? true : false}
                   onChange={this.onChange}
                 />
@@ -100,7 +108,7 @@ class RegisterForm extends Component {
                   fluid
                   placeholder='Phone'
                   name='phone'
-                  defaultValue={phone}
+                  value={phone}
                   error={errors.phone ? true : false}
                   onChange={this.onChange}
                 />
@@ -108,7 +116,7 @@ class RegisterForm extends Component {
                   fluid
                   placeholder='National ID'
                   name='nationalId'
-                  defaultValue={nationalId}
+                  value={nationalId}
                   error={errors.nationalId ? true : false}
                   onChange={this.onChange}
                 />
@@ -117,7 +125,7 @@ class RegisterForm extends Component {
                   placeholder='Password'
                   name='password'
                   type='password'
-                  defaultValue={password}
+                  value={password}
                   error={errors.password ? true : false}
                   onChange={this.onChange}
                 />
@@ -126,7 +134,7 @@ class RegisterForm extends Component {
                   placeholder='Confirm Password'
                   name='confirmPassword'
                   type='password'
-                  defaultValue={confirmPassword}
+                  value={confirmPassword}
                   error={errors.confirmPassword ? true : false}
                   onChange={this.onChange}
                 />

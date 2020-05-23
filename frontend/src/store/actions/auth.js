@@ -37,7 +37,7 @@ export const registerUser = (data, history) => dispatch => {
   AuthService.signup(data).then(resp => {
     if (resp.data.success) {
       dispatch(registerSuccess());
-      history.push('/login');
+      history.push('/api/users/login');
     }
   }).catch(error => {
     if (error.response.data) {
