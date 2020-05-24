@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Form, Grid, Header, Image, Message, Segment,
  Loader } from 'semantic-ui-react'
+ import axios from 'axios';
 
 import validateInput from '../validators/login';
 import { loginUser } from '../store/actions/auth';
@@ -41,6 +42,13 @@ class LoginForm extends Component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
+      axios.post('http://localhost:3000/api/users/login', this.state)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error)
+      })
       this.props.loginUser(this.state, this.props.history);
     }
   }
