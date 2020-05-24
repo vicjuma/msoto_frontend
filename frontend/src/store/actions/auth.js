@@ -6,8 +6,9 @@ import { setCurrentUser, registerSuccess, logoutUser, getErrors } from "./action
  */
 export const loginUser = (state, history) => dispatch => {
   AuthService.login(state.email, state.password).then(resp => {
-    if (resp.data.success) {
+    if (resp.data.message === 'authorized access') {
       dispatch(setCurrentUser(resp.data.profile));
+      console.log('user set')
       AuthService.saveToken(resp.data.token);
       history.push('/');
     }
