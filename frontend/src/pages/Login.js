@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, Form, Grid, Header, Image, Message, Segment,
@@ -42,10 +42,10 @@ class LoginForm extends Component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      axios.post('http://localhost:3000/api/users/login', this.state)
+      axios.post('http://localhost:5000/api/users/login', this.state)
       .then(response => {
-        console.log(response);
-        console.log('state:'+ this.state.email +' '+ this.state.password)
+        alert('the response is:' + response);
+        // this.props.history.push('/')
         this.props.loginUser(this.state, this.props.history);
       })
       .catch(error => {
@@ -135,4 +135,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 })
 
-export default connect(mapStateToProps, { loginUser })(LoginForm)
+export default connect(mapStateToProps, { loginUser })(LoginForm);

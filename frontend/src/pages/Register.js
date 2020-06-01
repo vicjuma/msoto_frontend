@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Image, Message,
   Segment, Loader } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
+import { Link, withRouter, Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -29,9 +29,12 @@ class RegisterForm extends Component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      axios.post('http://localhost:3000/api/users/signup', this.state)
+      axios.post('http://localhost:5000/api/users/signup', this.state)
       .then(response => {
         console.log(response)
+        if(response)
+    // alert('signup successful!')
+    this.props.history.push('/Login');
       })
       .catch(error => {
         console.log(error)
@@ -138,12 +141,13 @@ class RegisterForm extends Component {
                   error={errors.confirmPassword ? true : false}
                   onChange={this.onChange}
                 />
-                <Button color='teal' fluid size='large' disabled={isLoading}>
-                  {!isLoading
-                    ? 'Create Account'
-                    : <Loader active inverted inline size='small' />
-                  }
-                </Button>
+                    <Button color='teal' fluid size='large' disabled={isLoading}>
+                      {
+                        !isLoading
+                        ? 'Create Account'
+                        : <Loader active inverted inline size='small' />
+                      }>
+                      </Button>
               </Segment>
             </Form>
 
@@ -166,4 +170,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors
 })
 
-export default connect(mapStateToProps, { registerUser })(RegisterForm)
+export default withRouter(connect(mapStateToProps, { registerUser })(RegisterForm))

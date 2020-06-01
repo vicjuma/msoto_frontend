@@ -11,9 +11,16 @@ const path = require('path');
 
 // mongodb://myUserName:MyPassword@ElasticIP:27017/databaseName?authSource=admin
 
-mongoose.connect(`mongodb+srv://vik:vik@rest-0wmlu.mongodb.net/test?authSource=admin?retryWrites=true&w=majority`, { useNewUrlParser: true }).then(() => {
-  console.log('connected to the database')
-}).catch(err => console.log('could not connect to the database', err));
+// mongoose.connect(`mongodb+srv://vik:vik@rest-0wmlu.mongodb.net/test?authSource=admin?retryWrites=true&w=majority`, { useNewUrlParser: true }).then(() => {
+//   console.log('connected to the database')
+// }).catch(err => console.log('could not connect to the database', err));
+mongoose.connect(`mongodb://localhost:27017/appliances`)
+  .then(() => {
+    console.log('connected to the local mongodb daemon...')
+  })
+    .catch((err) => {
+      console.log(`unable to establish a connection due to ${err}`)
+    });
 
 app.use(cors());
 app.use(logger('dev'));

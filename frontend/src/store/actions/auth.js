@@ -5,19 +5,18 @@ import { setCurrentUser, registerSuccess, logoutUser, getErrors } from "./action
  * Login user action
  */
 export const loginUser = (state, history) => dispatch => {
-  AuthService.login(state.email, state.password).then(resp => {
-    if (resp.data.message === 'authorized access') {
+  AuthService.login(this.state.email, this.state.password).then(resp => {
+    if (resp.data.success) {
+      console.log(' response data token:' + resp.data.profile);
       dispatch(setCurrentUser(resp.data.profile));
       console.log('user set')
       AuthService.saveToken(resp.data.token);
       history.push('/');
     }
   }).catch(error => {
-    if (error.response.data) {
       dispatch(getErrors({
-        loginError: error.response.data.error
+        loginError: error
       }));
-    }
   });
 }
 
@@ -34,8 +33,9 @@ export const logout = (history) => dispatch => {
 /**
  * Register user action
  */
-export const registerUser = (data, history) => dispatch => {
-  AuthService.signup(data).then(resp => {
+export const registerUser = (user, history) => dispatch => {
+  AuthService.signup(user).then(resp => {
+    console.log('the user is:' + resp)
     if (resp.data.success) {
       dispatch(registerSuccess());
       history.push('/api/users/login');
